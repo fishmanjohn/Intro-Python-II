@@ -4,7 +4,7 @@ from player import Player
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mouth beckons"),
+                     "North of you, the cave mouth beckons", "stick"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -18,7 +18,8 @@ to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers, save for one plain looking oil lamp off in a dusty corner.
+The only exit is to the south.""","oil lamp"),
 }
 
 
@@ -48,12 +49,16 @@ while not Player.move() == "q":
             newplayer = Player(room['foyer'])
             print(newplayer.current_room.name)
             print(newplayer.current_room.description)
+            print(f"Items: {newplayer.current_room.room_items}")
+        elif Player.move() == "g":
+            newplayer = Player(room['outside'],newplayer.current_room.room_items)
+            print('picked up stick')
         else:
             print('There is nothing but dence forest in that direction...')
     elif newplayer.current_room == room['foyer']:   
         if Player.move() == "n":
             newplayer = Player(room['overlook'])
-            print(newplayer.current_room.name)
+            print(fnewplayer.current_room.name)
             print(newplayer.current_room.description)
         elif Player.move() == "s":
             newplayer = Player(room['outside'])
@@ -100,3 +105,7 @@ while not Player.move() == "q":
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+""" while not player move = q 
+if player move = n 
+    ceck for n_to
+    chane room to available room """
