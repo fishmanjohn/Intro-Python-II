@@ -1,10 +1,10 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mouth beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -38,7 +38,58 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+newplayer = Player(room['outside'])
 
+while not Player.move() == "q":
+    print(newplayer.current_room.name)
+    print(newplayer.current_room.description)
+    if newplayer.current_room == room['outside']:
+        if Player.move() == "n":
+            newplayer = Player(room['foyer'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        else:
+            print('There is nothing but dence forest in that direction...')
+    elif newplayer.current_room == room['foyer']:   
+        if Player.move() == "n":
+            newplayer = Player(room['overlook'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        elif Player.move() == "s":
+            newplayer = Player(room['outside'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        elif Player.move() == "e":
+            newplayer = Player(room['narrow'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        else:
+            print('There is nothing but a rocky cave wall in that direction...')
+    elif newplayer.current_room == room['overlook']: 
+        if Player.move() == "s":
+            newplayer = Player(room['foyer'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        else:
+            print('There is nothing but a shear cliff there...')
+    elif newplayer.current_room == room['narrow']: 
+        if Player.move() == "w":
+            newplayer = Player(room['foyer'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        elif Player.move() == "n":
+            newplayer = Player(room['treasure'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        else:
+            print('There is no passage through the walls smooth surface...')
+    elif newplayer.current_room == room['treasure']: 
+        if Player.move() == "s":
+            newplayer = Player(room['narrow'])
+            print(newplayer.current_room.name)
+            print(newplayer.current_room.description)
+        else:
+            print('There is no passage through the walls smooth surface...')
 # Write a loop that:
 #
 # * Prints the current room name
